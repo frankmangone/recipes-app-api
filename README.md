@@ -1,4 +1,4 @@
-## For development
+# For development
 
 After cloning, run:
 >
@@ -7,9 +7,9 @@ After cloning, run:
 > $ bin/rails units_seed
 >
 
-## Endpoints
+# Endpoints
 
-# Ingredients
+## Ingredients
  All paths relative to base url (http://localhost:3000)
 
 - *GET* /ingredients
