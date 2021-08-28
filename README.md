@@ -1,24 +1,27 @@
-# README
+## For development
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+After cloning, run:
+>
+> $ rails db:create
+> $ rails db:migrate
+> $ bin/rails units_seed
+>
 
-Things you may want to cover:
+## Endpoints
 
-* Ruby version
+# Ingredients
+ All paths relative to base url (http://localhost:3000)
 
-* System dependencies
+- *GET* /ingredients
+Gets a list of all ingredients in DB. Should limit and add search capabilities, pagination, etc.
 
-* Configuration
+- *GET* /ingredients/:id
+Gets a particular ingredient information
 
-* Database creation
+- *POST* /ingredients
+Adds a new ingredient. Payload should be of the form:
+{
+  name: string
+}
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- (...) More soon
