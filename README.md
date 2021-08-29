@@ -39,11 +39,18 @@ Adds a new recipe. Payload should be of the form:
   steps_attributes: [
     { description: `string` }
   ]
+  recipe_ingredients_attributes: [
+    { 
+      amount: `number`,
+      unit_id: `number`,
+      ingredient_id: `number`,
+    }
+  ]
 }
 
 Example: 
 >
-> curl -X POST http://localhost:3000/recipes -H "Content-Type: application/json" -d '{"name": "Lentil burgers", "steps_attributes": [{ "description": "A test description" }, { "description": "Another test" }]}'
+> curl -X POST http://localhost:3000/recipes -H "Content-Type: application/json" -d '{"name": "Lentil burgers", "steps_attributes": [{ "description": "A test description" }, { "description": "Another test" }], "recipe_ingredients_attributes": [{ "ingredient_id": 1, "unit_id": 1 }, { "ingredient_id": 2, "unit_id": 2 }] }'
 >
 
 
