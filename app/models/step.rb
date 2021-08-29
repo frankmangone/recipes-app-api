@@ -1,3 +1,3 @@
 class Step < ApplicationRecord
-  belongs_to :recipe_id
+  belongs_to :recipe
 end

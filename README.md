@@ -8,9 +8,9 @@ After cloning, run:
 >
 
 # Endpoints
+ All paths relative to base url (http://localhost:3000)
 
 ## Ingredients
- All paths relative to base url (http://localhost:3000)
 
 - *GET* /ingredients
 Gets a list of all ingredients in DB. Should limit and add search capabilities, pagination, etc.
@@ -21,7 +21,30 @@ Gets a particular ingredient information
 - *POST* /ingredients
 Adds a new ingredient. Payload should be of the form:
 {
-  name: string
+  name: `string`
 }
+
+## Recipes
+
+- *GET* /recipes
+Gets a list of all recipes in DB. Should limit and add search capabilities, pagination, etc.
+
+- *GET* /recipes/:id
+Gets a particular recipe information
+
+- *POST* /recipes
+Adds a new recipe. Payload should be of the form:
+{
+  name: `string`
+  steps_attributes: [
+    { description: `string` }
+  ]
+}
+
+Example: 
+>
+> curl -X POST http://localhost:3000/recipes -H "Content-Type: application/json" -d '{"name": "Lentil burgers", "steps_attributes": [{ "description": "A test description" }, { "description": "Another test" }]}'
+>
+
 
 - (...) More soon

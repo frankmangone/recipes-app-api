@@ -24,8 +24,14 @@ class RecipesController < ApplicationController
   
   private
 
-  def recipe_params
-    params.require(:recipe).permit(:name)
-  end
+    # Resources on permitting nested arrays of objects:
+    # https://api.rubyonrails.org/classes/ActionController/Parameters.html#method-i-permit
+    # https://www.reddit.com/r/rubyonrails/comments/l2o4rn/how_to_permit_an_array_json_with_rails/
+    def recipe_params
+      params.require(:recipe).permit(
+        :name,
+        { steps_attributes: [:description] }
+      )
+    end
   
 end
