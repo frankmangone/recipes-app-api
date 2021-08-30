@@ -3,4 +3,6 @@ Rails.application.routes.draw do
   
   resources :ingredients, only: [:index, :show, :create]
   resources :recipes, only: [:index, :show, :create]
+  
+  post 'authenticate', to: 'authentication#authenticate'
 end
