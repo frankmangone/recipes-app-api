@@ -1,14 +1,21 @@
 class RecipesController < ApplicationController
   skip_before_action :authenticate_request, only: [:index, :show]
 
+  # After hours of searching, this is the way to render :json
+  # when having nested associations:
+  # https://stackoverflow.com/questions/6755080/how-to-include-nested-and-sibling-associations-in-active-record-to-json
+
   def index
     recipes = Recipe.all
-    render json: recipes
+    render status: :ok, json: recipes
   end
 
   def show
-    recipe = Recipe.find(params[:id])
-    render status: :ok, json: recipe
+    # Eager loading is used to reduce the number of queries, since the list
+    # of recipe_ingredients can be long, and we don't want to be querying unit
+    # and ingredient for each recipe_ingredient
+    recipe = Recipe.includes(recipe_ingredients: [:unit, :ingredient]).find(params[:id])
+    render status: :ok, json: recipe.to_json(Recipe.populate)
   end
 
   def create
