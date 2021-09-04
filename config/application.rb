@@ -38,5 +38,8 @@ module RecipesAppApi
     config.api_only = true
 
     config.autoload_paths << Rails.root.join('lib')
+
+    # Necessary for accessing cookies sent in request headers, for auth
+    config.middleware.use ActionDispatch::Cookies
   end
 end
