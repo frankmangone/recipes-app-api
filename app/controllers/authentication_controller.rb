@@ -23,4 +23,7 @@ class AuthenticationController < ApplicationController
   def verify_authenticated
     render status: :ok
   end
+
+  def refresh_token
+  end
  end
