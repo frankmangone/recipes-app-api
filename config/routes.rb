@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   resources :recipes, only: [:index, :show, :create]
   
   post 'login', to: 'authentication#login'
+  post 'verify-authenticated', to: 'authentication#verify_authenticated'
 end
