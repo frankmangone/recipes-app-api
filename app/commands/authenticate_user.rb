@@ -7,6 +7,13 @@ class AuthenticateUser
   end
 
   def call
+    if user
+      return { 
+        jwt: JsonWebToken.encode(user_id: user.id),
+        name: user.name,
+        refresh_token: user.refresh_token
+      }
+    end
     JsonWebToken.encode(user_id: user.id) if user
   end
 

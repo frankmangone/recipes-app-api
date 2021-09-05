@@ -5,16 +5,14 @@ class AuthenticationController < ApplicationController
     command = AuthenticateUser.call(params[:email], params[:password])
  
     if command.success?
-      jwt = command.result
-
-      # Set the cookie on client by using a Set-Cookie header
+      # Set the refresh token to an http-only cookie
+      # on client via a Set-Cookie header
       # TODO: Change to [app_name]_jwt in the future
-      cookies.signed[:recipes_jwt] = {
-        value: jwt,
+      cookies.signed[:recipes_refresh_token] = {
+        value: command.result[:refresh_token],
         httponly: true,
-        expires: 30.minutes.from_now
       } 
-      render json: { jwt: command.result }
+      render json: { jwt: command.result[:jwt], name: command.result[:name] }, status: :ok
     else
       render json: { error: command.errors }, status: :unauthorized
     end

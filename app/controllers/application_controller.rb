@@ -7,8 +7,7 @@ class ApplicationController < ActionController::API
   private
 
   def authenticate_request
-    jwt = cookies.signed[:recipes_jwt]
-    @current_user = AuthorizeApiRequest.call(jwt).result
+    @current_user = AuthorizeApiRequest.call(request.headers).result
     render json: { error: 'Not Authorized' }, status: 401 unless @current_user
   end
 end
