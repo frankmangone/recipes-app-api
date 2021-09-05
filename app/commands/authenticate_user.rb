@@ -8,6 +8,7 @@ class AuthenticateUser
 
   def call
     if user
+      user.regenerate_refresh_token
       return { 
         jwt: JsonWebToken.encode(user_id: user.id),
         name: user.name,
