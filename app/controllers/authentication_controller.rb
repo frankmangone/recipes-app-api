@@ -24,23 +24,30 @@ class AuthenticationController < ApplicationController
     end
   end
 
+  def logout
+    begin
+      @current_user.update!(refresh_token: nil)
+      render status: :ok
+    rescue (error)
+      render status: :internal_server_error
+    end
+  end
+
   def refresh_token
     old_token = cookies[:recipes_refresh_token]
     user ||= User.find_by_refresh_token(old_token)
-    if user.nil?
-      render status: :unauthorized
-    else
-      user.regenerate_refresh_token
-      cookies[:recipes_refresh_token] = {
-        value: user.refresh_token,
-        httponly: true,
-      }
-      jwt = JsonWebToken.encode(user_id: user.id)
-      render json: { 
-        jwt: jwt,
-        expiry: JWT_EXPIRATION,
-        name: user.name
-      }, status: :ok
-    end
+    render status: :unauthorized and return if user.nil?
+
+    user.regenerate_refresh_token
+    cookies[:recipes_refresh_token] = {
+      value: user.refresh_token,
+      httponly: true,
+    }
+    jwt = JsonWebToken.encode(user_id: user.id)
+    render json: { 
+      jwt: jwt,
+      expiry: JWT_EXPIRATION,
+      name: user.name
+    }, status: :ok
   end
  end

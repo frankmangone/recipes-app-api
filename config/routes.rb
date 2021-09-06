@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   resources :recipes, only: [:index, :show, :create]
   
   post 'login', to: 'authentication#login'
+  post 'logout', to: 'authentication#logout'
   post 'refresh-token', to: 'authentication#refresh_token'
 end
